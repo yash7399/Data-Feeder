@@ -1,0 +1,177 @@
+.navbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  background-color: var(--card-bg);
+  border-bottom: 1px solid var(--border-color);
+  padding: 0.75rem 1.5rem;
+  margin: 5px;
+  border-radius: 10px;
+}
+
+.navBox{
+    display: flex;
+    
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+  align-items: flex-start;
+  justify-content: flex-start ;
+  gap: 7vw;
+  width: 100%;
+}
+
+.nav-item {
+  font-size: medium;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  position: relative;
+  padding-bottom: 0.5rem; /* Space for underline */
+}
+
+.nav-item:hover {
+  color: var(--primary-hover);
+  transform: translateY(-1px); /* Subtle lift effect */
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth transition for all changes */
+}
+
+.nav-item.active {
+  color: var(--primary-color);
+}
+
+.nav-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: var(--text-muted);
+  border-radius: 2px;
+  transform: scaleX(1); /* Start transformed for transition */
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-item:not(.active)::after {
+  transform: scaleX(0); /* Hide underline when not active */
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth transition for all changes */
+}
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  a, .nav-list {
+    width: 100%; /* Reset from 20vw/100vw to fit mobile screen */
+  }
+
+  .nav-list {
+    gap: 2rem; /* Reduce large 7vw gap for vertical or tighter horizontal look */
+    flex-wrap: wrap; /* Allows items to wrap if the screen is very narrow */
+  }
+
+  .form-header-img {
+    max-width: 150px; /* Prevent logo from being too large on mobile */
+    margin: 0 auto;
+  }
+}
+
+.nav-item {
+  text-decoration: none; /* Removes default link underline */
+  color: var(--text-muted);
+  font-size: medium;
+  font-weight: 500;
+  cursor: pointer;
+  position: relative;
+  padding-bottom: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+/* Ensure the hover and active states still work with the 'a' tag */
+.nav-item:hover {
+  color: var(--primary-hover);
+}
+
+.nav-item.active {
+  color: var(--primary-color);
+}
+
+/* Container for the menu item and its dropdown */
+.nav-item-container {
+  position: relative;
+  list-style: none;
+  padding: 10px 0;
+}
+
+.nav-item-label {
+  font-size: medium;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.nav-item-container:hover .nav-item-label {
+  color: var(--primary-color);
+}
+
+/* The actual Dropdown Box */
+.dropdown-menu {
+  position: absolute;
+  top: 100%; /* Sits exactly below the parent */
+  left: 0;
+  background-color: var(--card-bg);
+  min-width: 180px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 10px 0;
+  margin: 0;
+  list-style: none;
+  z-index: 1000;
+  
+  /* Hidden state */
+  display: none;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+}
+
+/* Show on Hover */
+.nav-item-container:hover .dropdown-menu {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Dropdown Links */
+.dropdown-link {
+  display: block;
+  padding: 10px 20px;
+  text-decoration: none;
+  color: var(--text-main);
+  font-size: 14px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.dropdown-link:hover {
+  background-color: var(--bg-color);
+  color: var(--primary-color);
+}
+
+/* Active State for Dropdown Links */
+.dropdown-link.active {
+  background-color: var(--input-focus);
+  color: var(--primary-color);
+  font-weight: 600;
+  border-left: 3px solid var(--primary-color);
+}

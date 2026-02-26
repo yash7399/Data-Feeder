@@ -1,0 +1,18 @@
+
+.LogoNavbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  background-color: var(--card-bg);
+  border-bottom: 1px solid var(--border-color);
+}
+.form-header-img {
+  height: auto;
+  width: 70%;
+  object-fit: contain;
+}
+
+a{
+    width: 20vw;
+}
+

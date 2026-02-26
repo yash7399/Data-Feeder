@@ -1,38 +1,358 @@
-.App {
+body {
+  font-family: "Segoe UI", Roboto, sans-serif;
+  background-color: #f2f5fa;
+  margin: 0;
+  padding: 0;
+}
+
+.form-container {
+  width: 80%;
+  max-width: 900px;
+  background: #fff;
+  margin: 40px auto;
+  padding: 30px 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.form-header{
+  width: 100%;
+
+}
+.form-header-img{
+  width: 30%;
+  
+}
+
+.form-title {
   text-align: center;
+  color: #0b3d91;
+  border-bottom: 2px solid #d9e2f3;
+  padding-bottom: 10px;
+  font-size: 20px;
+  font-weight: 800;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.form-section {
+  margin-top: 30px;
+  background: #f9fbff;
+  border: 1px solid #d9e2f3;
+  border-radius: 8px;
+  padding: 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.form-section h3 {
+  color: #0b3d91;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #cdd9ec;
+  padding-bottom: 5px;
+  font-size: 17px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+label {
   display: flex;
   flex-direction: column;
+  font-size: 14px;
+  color: #333;
+}
+
+input, select {
+  margin-top: 5px;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #bcc9e0;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+input:focus, select:focus {
+  border-color: #0b3d91;
+  box-shadow: 0 0 5px rgba(11, 61, 145, 0.3);
+  outline: none;
+}
+
+.captcha-section {
+  margin-top: 20px;
+}
+
+.captcha-box {
+  /* display: flex; */
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 10px;
 }
 
-.App-link {
-  color: #61dafb;
+.captcha-box * {
+  margin: 3px ;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+.captcha-code {
+  background-color: #0b3d91;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 4px;
+  font-weight: 600;
+  /* letter-spacing: 2px; */
+  user-select: none;
+}
+
+.reload-btn {
+  border: none;
+  background-color: #eef3fb;
+  color: #0b3d91;
+  padding: 8px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.reload-btn:hover {
+  background-color: #d9e6ff;
+}
+
+.note {
+  color: #cc0000;
+  font-size: 13px;
+  margin-top: 15px;
+}
+
+.form-buttons {
+  margin-top: 25px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.submit-btn, .cancel-btn {
+  border: none;
+  padding: 10px 20px;
+  font-size: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.submit-btn {
+  background-color: #0b3d91;
+  color: #fff;
+}
+
+.submit-btn:hover {
+  background-color: #093170;
+}
+
+.cancel-btn {
+  background-color: #e0e6ef;
+  color: #333;
+}
+
+.cancel-btn:hover {
+  background-color: #ccd7e8;
+}
+.star{
+  color: red;
+}
+.hidden{
+  display: none;
+}
+
+image{
+  width: 30px;
+}
+.segment-fields {
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 16px 0;
+}
+
+.segment-fields h5 {
+  margin: 0 0 16px 0;
+  color: black;
+  font-size: 15px;
+  font-weight: 450;
+}
+
+.checkbox-group {
+  grid-column: span 1;
+}
+
+.checkbox-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.checkbox-label {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 6px;
+  font-size: 14px;
+  color: #333;
+  margin: 5px 5px ;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+}
+
+/* Address sections styling */
+.address-section {
+  margin-top: 20px;
+}
+
+.address-section .section-part-heading {
+  margin: 0 0 12px 0;
+  color: black;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.address-section span{
+  font-size: 14px;
+  font-weight: 900px;
+}
+
+
+.address-section .form-grid {
+  grid-template-columns: 1fr; /* Single column for address grid */
+}
+
+/* Full width for Address Line 1 & 2 */
+.address-line-fullwidth {
+  grid-column: 1 / -1; /* Span full width */
+  margin: auto 5px;
+}
+
+.address-line-fullwidth input {
+  width: 100%;
+  max-width: none;
+}
+
+/* Rest of address fields in grid */
+.address-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+/* Billing header */
+
+
+
+.same-address-checkbox {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 6px;
+  font-size: 14px;
+  color: #333;
+  margin: 5px 5px ;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.same-address-checkbox span{
+  font-size: 14px;
+}
+
+.same-address-checkbox input[type="checkbox"] {
+  cursor: pointer;
+  width: auto;
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .billing-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
   }
 }
+
+
+.section-part-heading{
+  font-size:15px;
+  font-weight: 600;
+  margin: 4px;
+}
+
+
+/* Collapsible Sections */
+.collapsible-section {
+  margin-bottom: 1.5rem;
+}
+
+.collapsible-trigger {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 12px 16px;
+  background: #e5e6e7;
+  border-radius: 8px 8px 0 0;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s ease;
+  margin-bottom: 12px;
+  gap: 12px;
+}
+
+.collapsible-trigger:hover {
+  background: #a7a8aa;
+}
+
+.caret {
+  font-size: 12px;
+  color: #2968a6;
+  transition: transform 0.3s ease;
+  margin-left: auto;
+  width: auto;
+  margin: 0px;
+}
+
+.caret.rotated {
+  transform: rotate(180deg); /* ▼ becomes ▲ */
+}
+
+.collapsible-content {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.collapsible-content.open {
+  max-height: 500px; /* Adjust based on content height */
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Dropdown selects for better UX */
+.address-grid select,
+.address-line-fullwidth select {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: white;
+}
+
+/* Billing checkbox positioning */
+/* .billing-header .same-address-checkbox {
+  margin-left: auto;
+  margin-right: 8px;
+} */

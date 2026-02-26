@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import FormRealTime from "./components/FormRealTime";
+import FormDelay from "./components/FormDelay";
+import Navbar from "./components/Navbar";
+import VendorTable from "./components/VendorTable";
+import Logo from "./components/Logo";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Logo/>
+      <Navbar />
+      <main>
+        <Routes>
+          {/* Redirect base URL to Real Time */}
+          <Route path="/" element={<Navigate to="/real-time-add-new-vendor" />} />
+          
+          <Route path="/real-time-add-new-vendor" element={<FormRealTime />} />
+          <Route path="/delay-add-new-vendor" element={<FormDelay/>} />
+          <Route path="/real-time-show-all-vendors" element={<VendorTable />} />
+          <Route path="/delay-show-all-vendors" element={<VendorTable/>} />
+          
+          {/* Optional: Add route for Show All Vendors */}
+          {/* <Route path="/vendors" element={<VendorsList />} /> */}
+        </Routes>
+      </main>
+    </Router>
   );
-}
+};
 
 export default App;
