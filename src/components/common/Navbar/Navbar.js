@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import '../styles/Navbar.css';
+import './Navbar.css';
 
 const Navbar = () => {
     const navItems = [
@@ -9,7 +9,7 @@ const Navbar = () => {
             basePath: '/real-time',
             subItems: [
                 { label: 'Add a Vendor', path: '/real-time-add-new-vendor' },
-                { label: 'Show/Edit Vendors', path: '/real-time-show-all-vendors' }
+                { label: 'Delete/Edit Vendors', path: '/real-time-show-all-vendors' }
             ]
         },
         {
@@ -17,9 +17,18 @@ const Navbar = () => {
             basePath: '/delay',
             subItems: [
                 { label: 'Add a Vendor', path: '/delay-add-new-vendor' },
-                { label: 'Show/Edit Vendors', path: '/delay-show-all-vendors' }
+                { label: 'Delete/Edit Vendors', path: '/delay-show-all-vendors' }
+            ]
+        },
+        {
+            name:"Show All Vendors",
+            basePath:"/show-all-vendors",
+            subItems:[
+                {label:"Real Time Vendors", path:"/real-time"},
+                {label:"Delay Vendors", path:"/delay"}
             ]
         }
+
     ];
 
     return (

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import "../styles/Header.css";
-import Header from "./Header";
-import VendorDetails from "./VendorDetails";
-import ContactDetails from "./ContactDetails";
-import Address from "./Address";
-import BillingAddress from "./BillingAddress";
-import SegmentWiseDetails from "./SegmentWiseDetails";
-import CaptchaSection from "./CaptchaSection";
+import "../../../styles/form.css";
+import Header from "../Header/Header";
+import VendorDetails from "../VendorDetails/VendorDetails";
+import ContactDetails from "../ContactDetails/ContactDetails";
+import Address from "../Address/Address";
+import BillingAddress from "../BillingAddress/BillingAddress";
+import SegmentWiseDetails from "../SegmentWiseDetails/SegmentWiseDetails";
+import CaptchaSection from "../CaptchaSection/CaptchaSection";
+import APIDetails from "../APIDetails/APIDetails";
 
 const FormRealTime = () => {
   const [formData, setFormData] = useState({
@@ -14,6 +15,9 @@ const FormRealTime = () => {
     ipAddress: "",
     port: "",
     status: "",
+    userName:"",
+    password:"",
+    secretKey:"",
     mobileNumber: "",
     registrationDate: "",
     address: {
@@ -52,13 +56,10 @@ const FormRealTime = () => {
   };
 
   const levelValue = {
-    "Equity (CM)": ["Level 1", "Level 2", "Level 3"],
-    "F/O": ["Level 1", "Level 2"],
-    "Indices": []
+    "Equity (CM)": ["2 mins", "5 mins", "10 mins"],
+    "F/O": ["2 mins", "5 mins", "10 mins"],
+    "Indices": ["2 mins", "5 mins", "10 mins"]
   };
-
-  const countries = ["India", "USA", "UK", "UAE", "Singapore", "Other"];
-  const states = ["Maharashtra", "Delhi", "Gujarat", "Karnataka", "Tamil Nadu", "Punjab", "Other"];
 
   const segmentOptions = [
     { id: "equity", value: "Equity (CM)", label: "Equity (CM)" },
@@ -154,7 +155,7 @@ const FormRealTime = () => {
     alert("Form submitted successfully!");
   };
 
-  const title="Data Request Form (Real Time)";
+  const title="Data Request Form (Delay)"
 
   return (
 
@@ -168,6 +169,14 @@ const FormRealTime = () => {
           <section className="form-section">
             <h3>Vendor Details</h3>
             <VendorDetails 
+              formData={formData}
+              handleChange={handleChange}
+            />
+          </section>
+
+          <section className="form-section">
+            <h3>Vendor API Details</h3>
+            <APIDetails 
               formData={formData}
               handleChange={handleChange}
             />
@@ -224,7 +233,7 @@ const FormRealTime = () => {
                 levelValue={levelValue}
                 handleSegmentFieldChange={handleSegmentFieldChange}
                 packetCodeValue={packetCodeValue}
-                isDelayed={false}
+                isDelayed={true}
               />
             ))}
 

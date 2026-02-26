@@ -1,4 +1,4 @@
-import "../styles/Header.css"
+import "./Header.css"
 
 function Header({title}) {
 
@@ -9,7 +9,10 @@ function Header({title}) {
                 <h4 className="form-title">{title}</h4>
             </div>
 
-            <p className="note">Note: All fields marked * are mandatory.</p>
+            <div className="note">
+
+             <p >Note: All fields marked * are mandatory.</p>
+            </div>
 
         </>
     )

@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/VendorTable.css';
+import './VendorTable.css';
 
 const VendorTable = () => {
   const vendors = [

@@ -1,4 +1,4 @@
-import "../styles/Header.css"
+import "../../../styles/form.css"
 
 function VendorDetails({formData,handleChange}){
     return(

@@ -1,11 +1,11 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import FormRealTime from "./components/FormRealTime";
-import FormDelay from "./components/FormDelay";
-import Navbar from "./components/Navbar";
-import VendorTable from "./components/VendorTable";
-import Logo from "./components/Logo";
+import FormRealTime from "./components/form/FormRealTime/FormRealTime";
+import FormDelay from "./components/form/FormDelay/FormDelay";
+import Navbar from "./components/common/Navbar/Navbar";
+import VendorTable from "./components/table/VendorTable/VendorTable";
+import Logo from "./components/common/Logo/Logo";
 
 const App = () => {
   return (

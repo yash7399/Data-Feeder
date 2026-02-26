@@ -1,4 +1,4 @@
-import "../styles/Header.css"
+import "./SegmentWiseDetails.css"
 
 function SegmentWiseDetails({
                 segment,
