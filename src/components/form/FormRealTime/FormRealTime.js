@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../../../styles/form.css";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import Header from "../Header/Header";
 import VendorDetails from "../VendorDetails/VendorDetails";
 import ContactDetails from "../ContactDetails/ContactDetails";
@@ -7,38 +9,42 @@ import Address from "../Address/Address";
 import BillingAddress from "../BillingAddress/BillingAddress";
 import SegmentWiseDetails from "../SegmentWiseDetails/SegmentWiseDetails";
 import CaptchaSection from "../CaptchaSection/CaptchaSection";
+import schema from "../Zod/RealTimeSchema.js"
 
 const FormRealTime = () => {
-  const [formData, setFormData] = useState({
-    vendorName: "",
-    ipAddress: "",
-    port: "",
-    status: "",
-    mobileNumber: "",
-    registrationDate: "",
-    address: {
-      addressLine1: "",
-      addressLine2: "",
-      city: "",
-      state: "",
-      zip: "",
-      country: ""
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(schema),
+    defaultValues: {
+      billingSameAsAddress: false,
+      segment: [],
+      segmentDetails: {},
     },
-    billingAddress: {
-      addressLine1: "",
-      addressLine2: "",
-      city: "",
-      state: "",
-      zip: "",
-      country: ""
-    },
-    billingSameAsAddress: false,
-    segment: [],
-    captcha: "",
   });
 
-  const [segmentData, setSegmentData] = useState({});
-  
+  // --- 3. WATCHERS FOR DYNAMIC UI ---
+  const selectedSegments = watch("segment");
+  const billingSameAsAddress = watch("billingSameAsAddress");
+  const mainAddress = watch("address");
+
+  // Sync billing address if checkbox is clicked
+  useEffect(() => {
+    if (billingSameAsAddress) {
+      setValue("billingAddress", mainAddress);
+    }
+  }, [billingSameAsAddress, mainAddress, setValue]);
+
+  const onSubmit = (data) => {
+    console.log("Final Form Data:", data);
+    alert("Form submitted successfully!");
+  };
+
+  // --- DATA OPTIONS ---
   const subscriptionTypeValue = {
     "Equity (CM)": ["Real Time/BOD", "EOD Bhavcopy"],
     "F/O": ["Real Time/BOD", "EOD Bhavcopy", "Historicla Trade Data"],
@@ -57,104 +63,10 @@ const FormRealTime = () => {
     "Indices": []
   };
 
-  const countries = ["India", "USA", "UK", "UAE", "Singapore", "Other"];
-  const states = ["Maharashtra", "Delhi", "Gujarat", "Karnataka", "Tamil Nadu", "Punjab", "Other"];
-
-  const segmentOptions = [
-    { id: "equity", value: "Equity (CM)", label: "Equity (CM)" },
-    { id: "fo", value: "F/O", label: "F/O" },
-    { id: "indices", value: "Indices", label: "Indices" }
-  ];
-
-
-
-  const handleSegmentChange = (value, checked) => {
-    const currentSegments = formData.segment || [];
-
-    if (checked) {
-      setFormData({
-        ...formData,
-        segment: [...currentSegments, value]
-      });
-      setSegmentData(prev => ({
-        ...prev,
-        [value]: {
-          subscriptionType: "",
-          packetCode: "",
-          levels: ""
-        }
-      }));
-    } else {
-      const newSegments = currentSegments.filter(segment => segment !== value);
-      setFormData({
-        ...formData,
-        segment: newSegments
-      });
-      setSegmentData(prev => {
-        const newData = { ...prev };
-        delete newData[value];
-        return newData;
-      });
-    }
-  };
-
-  const handleSegmentFieldChange = (segment, field, value) => {
-    setSegmentData(prev => ({
-      ...prev,
-      [segment]: {
-        ...prev[segment],
-        [field]: value
-      }
-    }));
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    if (name.startsWith("address.") || name.startsWith("billingAddress.")) {
-      const field = name.split(".")[1];
-      const section = name.split(".")[0];
-      setFormData(prev => ({
-        ...prev,
-        [section]: {
-          ...prev[section],
-          [field]: value
-        }
-      }));
-    } else {
-      setFormData({ ...formData, [name]: value });
-    }
-  };
-
-  const handleBillingSameChange = (e) => {
-    const checked = e.target.checked;
-    setFormData(prev => ({
-      ...prev,
-      billingSameAsAddress: checked,
-      ...(checked ? {
-        billingAddress: {
-          ...prev.address
-        }
-      } : {
-        billingAddress: {
-          addressLine1: "",
-          addressLine2: "",
-          city: "",
-          state: "",
-          zip: "",
-          country: ""
-        }
-      })
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Form Data:", formData);
-    console.log("Segment Data:", segmentData);
-    alert("Form submitted successfully!");
-  };
-
-  const title="Data Request Form (Real Time)";
+  // Inline style object for errors
+  const errorStyle = { color: "#ff4d4f", fontSize: "12px", marginTop: "4px", display: "block" };
+  const inputErrorBorder = { borderColor: "#ff4d4f" };
+  const title = "Data Request Form (Real Time)";
 
   return (
 
@@ -162,34 +74,38 @@ const FormRealTime = () => {
 
       <div className="form-container">
         <Header
-            title={title} 
+          title={title}
         />
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <section className="form-section">
             <h3>Vendor Details</h3>
-            <VendorDetails 
-              formData={formData}
-              handleChange={handleChange}
+            <VendorDetails
+              register={register}
+              errors={errors}
+              errorStyle={errorStyle}
+              inputErrorBorder={inputErrorBorder}
             />
           </section>
 
           <section className="form-section">
             <h3>Contact and Address Details</h3>
             <ContactDetails
-              formData={formData}
-              handleChange={handleChange}
+                register={register}
+                errorStyle={errorStyle}
+                errors={errors}
             />
 
             <Address
-              formData={formData}
-              handleChange={handleChange}
+              register={register}
+              
             />
 
             {/* Billing Address Section - Collapsible */}
-           <BillingAddress
-              formData={formData}
-              handleChange={handleChange}
-              handleBillingSameChange={handleBillingSameChange}
+            <BillingAddress
+              register={register}
+              billingSameAsAddress={billingSameAsAddress}
+              errors={errors}
+              errorStyle={errorStyle}
             />
 
 
@@ -198,39 +114,35 @@ const FormRealTime = () => {
           <section className="form-section">
             <h3>Data Request Details</h3>
             <div className="form-grid">
-              <label className="checkbox-group">
-                <span className="section-part-heading">Segment <span className="star">*</span></span>
-                <div className="checkbox-container">
-                  {segmentOptions.map((option) => (
-                    <label key={option.id} className="checkbox-label">
-                      <input
-                        type="checkbox"
-                        value={option.value}
-                        checked={formData.segment.includes(option.value)}
-                        onChange={(e) => handleSegmentChange(option.value, e.target.checked)}
-                      />
-                      <span>{option.label}</span>
+              <div className="checkbox-group">
+                <span className="field-label">Segment <span className="star">*</span></span>
+                <div className="checkbox-container" style={{ display: 'flex', gap: '15px', marginTop: '10px' }}>
+                  {["Equity (CM)", "F/O", "Indices"].map((seg) => (
+                    <label key={seg}>
+                      <input type="checkbox" value={seg} {...register("segment")} /> {seg}
                     </label>
                   ))}
                 </div>
-              </label>
+                {errors.segment && <span style={errorStyle}>{errors.segment.message}</span>}
+              </div>
             </div>
 
-            {formData.segment.map((segment) => (
+            {selectedSegments?.map((segment) => (
               <SegmentWiseDetails
                 segment={segment}
-                segmentData={segmentData}
                 subscriptionTypeValue={subscriptionTypeValue}
-                levelValue={levelValue}
-                handleSegmentFieldChange={handleSegmentFieldChange}
+                register={register}
                 packetCodeValue={packetCodeValue}
-                isDelayed={false}
+                levelValue={levelValue}
+                errors={errors}
+                errorStyle={errorStyle}
               />
             ))}
 
             <CaptchaSection
-              formData={formData}
-              handleChange={handleChange}
+              register={register}
+              errors={errors}
+              errorStyle={errorStyle}
             />
           </section>
 

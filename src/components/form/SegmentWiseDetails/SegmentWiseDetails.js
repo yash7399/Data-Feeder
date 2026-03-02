@@ -1,63 +1,75 @@
 import "./SegmentWiseDetails.css"
 
+
+const inputErrorBorder = { borderColor: "#ff4d4f" };
+
 function SegmentWiseDetails({
-                segment,
-                segmentData,
-                subscriptionTypeValue,
-                levelValue,
-                handleSegmentFieldChange,
-                packetCodeValue,
-                isDelayed
-}){
-    return(
-        <>
-            <div key={segment} className="segment-fields">
-                <h4>{segment} Details</h4>
+  segment,
+  subscriptionTypeValue,
+  register,
+  packetCodeValue,
+  levelValue,
+  errors,
+  errorStyle
+}) {
+  return (
+    <>
+      
+<div key={segment} className="segment-fields" style={{ border: '1px solid #ddd', padding: '15px', marginTop: '15px', borderRadius: '8px' }}>
+                <h3 className="segment-title">{segment} Details</h3>
                 <div className="form-grid">
+
+                  {/* Subscription Type */}
                   <label>
-                    <span className="section-part-heading">Subscription Type <span className="star">*</span></span>
+                    <span>Subscription Type <span className="star">*</span></span>
                     <select
-                      value={segmentData[segment]?.subscriptionType || ""}
-                      onChange={(e) => handleSegmentFieldChange(segment, "subscriptionType", e.target.value)}
+                      {...register(`segmentDetails.${segment}.subscriptionType`)}
+                      style={errors.segmentDetails?.[segment]?.subscriptionType ? inputErrorBorder : {}}
                     >
                       <option value="">Select</option>
-                      {subscriptionTypeValue[segment]?.map((value) => (
-                        <option key={value} value={value}>{value}</option>
-                      ))}
+                      {subscriptionTypeValue[segment].map(v => <option key={v} value={v}>{v}</option>)}
                     </select>
+                    {errors.segmentDetails?.[segment]?.subscriptionType && (
+                      <span style={errorStyle}>{errors.segmentDetails[segment].subscriptionType.message}</span>
+                    )}
                   </label>
 
+                  {/* Packet Code */}
                   <label>
-                    <span className="section-part-heading">Packet Code <span className="star">*</span></span>
+                    <span>Packet Code <span className="star">*</span></span>
                     <select
-                      value={segmentData[segment]?.packetCode || ""}
-                      onChange={(e) => handleSegmentFieldChange(segment, "packetCode", e.target.value)}
+                      {...register(`segmentDetails.${segment}.packetCode`)}
+                      style={errors.segmentDetails?.[segment]?.packetCode ? inputErrorBorder : {}}
                     >
                       <option value="">Select</option>
-                      {packetCodeValue[segment]?.map((value) => (
-                        <option key={value} value={value}>{value}</option>
-                      ))}
+                      {packetCodeValue[segment].map(v => <option key={v} value={v}>{v}</option>)}
                     </select>
+                    {errors.segmentDetails?.[segment]?.packetCode && (
+                      <span style={errorStyle}>{errors.segmentDetails[segment].packetCode.message}</span>
+                    )}
                   </label>
 
-                  {(isDelayed || segment !== "Indices"  )&& (
+                  {/* Levels (Conditional) */}
+                  {segment !== "Indices" && (
                     <label>
-                      <span className="section-part-heading">{isDelayed?"TimeFrame":"Levels"} <span className="star">*</span></span>
+                      <span>Levels <span className="star">*</span></span>
                       <select
-                        value={segmentData[segment]?.levels || ""}
-                        onChange={(e) => handleSegmentFieldChange(segment, "levels", e.target.value)}
+                        {...register(`segmentDetails.${segment}.levels`)}
+                        style={errors.segmentDetails?.[segment]?.levels ? inputErrorBorder : {}}
                       >
                         <option value="">Select</option>
-                        {levelValue[segment]?.map((value) => (
-                          <option key={value} value={value}>{value}</option>
-                        ))}
+                        {levelValue[segment].map(v => <option key={v} value={v}>{v}</option>)}
                       </select>
+                      {errors.segmentDetails?.[segment]?.levels && (
+                        <span style={errorStyle}>{errors.segmentDetails[segment].levels.message}</span>
+                      )}
                     </label>
                   )}
+
                 </div>
               </div>
-        </>
-    )
+    </>
+  )
 }
 
 export default SegmentWiseDetails

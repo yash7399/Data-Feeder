@@ -1,7 +1,12 @@
 import { useState } from "react";
 import "../../../styles/form.css"
 
-function BillingAddress({formData,handleChange,handleBillingSameChange}){
+function BillingAddress({
+                register,
+                billingSameAsAddress,
+                errors,
+                errorStyle
+}){
     
   const [billingOpen, setBillingOpen] = useState(false);
     return(
@@ -18,82 +23,45 @@ function BillingAddress({formData,handleChange,handleBillingSameChange}){
                 <label className="same-address-checkbox">
                   <input
                     type="checkbox"
-                    checked={formData.billingSameAsAddress}
-                    onChange={handleBillingSameChange}
+                    {...register("billingSameAsAddress")}
                   />
                   <span>Same as Address</span>
                 </label>
-                {!formData.billingSameAsAddress && (
+                {!billingSameAsAddress && (
                   <div className="form-grid">
                     <div className="address-line-fullwidth">
                       <label>
                         <span>Address Line 1</span>
-                        <input
-                          type="text"
-                          name="billingAddress.addressLine1"
-                          value={formData.billingAddress.addressLine1}
-                          onChange={handleChange}
-                          placeholder="Address Line 1"
-                        />
+                        <input {...register("billingAddress.addressLine1")} placeholder="Address Line 1"/>
                       </label>
                     </div>
                     <div className="address-line-fullwidth">
                       <label>
                         <span>Address Line 2</span>
-                        <input
-                          type="text"
-                          name="billingAddress.addressLine2"
-                          value={formData.billingAddress.addressLine2}
-                          onChange={handleChange}
-                          placeholder="Address Line 2"
-                        />
+                        <input {...register("billingAddress.addressLine2")} placeholder="Address Line 2"/>
                       </label>
                     </div>
                     <div className="address-grid">
                       <label>
                         <span>City</span>
-                        <input
-                          type="text"
-                          name="billingAddress.city"
-                          value={formData.billingAddress.city}
-                          onChange={handleChange}
-                          placeholder="City"
-                        />
+                        <input {...register("billingAddress.city")} placeholder="City" />
                       </label>
                       <label>
                         <span>State</span>
-                        <input
-                        type="text"
-                          name="billingAddress.state"
-                          value={formData.billingAddress.state}
-                          onChange={handleChange}
-                          placeholder="State"
-                        />
+                        <input {...register("billingAddress.state")} placeholder="State" />
 
                       </label>
                       <label>
                         <span>Zip</span>
-                        <input
-                          type="text"
-                          name="billingAddress.zip"
-                          value={formData.billingAddress.zip}
-                          onChange={handleChange}
-                          placeholder="Zip Code"
-                        />
+                        <input {...register("billingAddress.zip")} placeholder="Zip Code" />
                       </label>
                       <label>
                         <span>Country</span>
-                        <input
-                        type="text"
-                          name="billingAddress.country"
-                          value={formData.billingAddress.country}
-                          onChange={handleChange}
-                          placeholder="Country"
-
-                        />
+                        <input {...register("billingAddress.country")} placeholder="Country" />
 
                       </label>
                     </div>
+{errors.billingAddress?.addressLine1 && <span style={errorStyle}>{errors.billingAddress.addressLine1.message}</span>}
                   </div>
                 )}
               </div>

@@ -1,39 +1,28 @@
 import "../../../styles/form.css"
 
-function APIDetails({formData,handleChange}){
+function APIDetails({
+  register,
+  errors,
+  errorStyle
+}){
     return(
         <>
         
             <div className="form-grid">
               <label>
                 <span className="section-part-heading">Username <span className="star">*</span></span>
-                <input
-                  type="text"
-                  name="userName"
-                  value={formData.userName}
-                  onChange={handleChange}
-                //   required
-                />
+                <input {...register("username")} placeholder="9876543210" />
+                {errors.username && <span style={errorStyle}>{errors.username.message}</span>}
               </label>
               <label>
                 <span className="section-part-heading">Password <span className="star">*</span></span>
-                <input
-                  type="text"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                //   required
-                />
+                <input {...register("password")} placeholder="9876543210" />
+                {errors.password && <span style={errorStyle}>{errors.password.message}</span>}
               </label>
               <label>
                 <span className="section-part-heading">Secret Key <span className="star">*</span></span>
-                <input
-                  type="text"
-                  name="secretKey"
-                  value={formData.secretKey}
-                  onChange={handleChange}
-                //   required
-                />
+                <input {...register("secretKey")} placeholder="9876543210" />
+                {errors.secretKey && <span style={errorStyle}>{errors.secretKey.message}</span>}
               </label>
             </div>
         </>

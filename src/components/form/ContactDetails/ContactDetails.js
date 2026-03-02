@@ -1,31 +1,21 @@
 import "../../../styles/form.css"
 
-function ContactDetails({formData,handleChange}){
+function ContactDetails({register,errorStyle,errors}){
     return(
         <>
         
         <div className="form-grid">
-              <label>
-                <span className="section-part-heading">Mobile Number <span className="star">*</span></span>
-                <input
-                  type="text"
-                  name="mobileNumber"
-                  value={formData.mobileNumber}
-                  onChange={handleChange}
-                //   required
-                />
-              </label>
-              <label>
-                <span className="section-part-heading">Registration Date <span className="star">*</span></span>
-                <input
-                  type="date"
-                  name="registrationDate"
-                  value={formData.registrationDate}
-                  onChange={handleChange}
-                //   required
-                />
-              </label>
-            </div>
+            <label>
+              <span className="field-label">Mobile Number <span className="star">*</span></span>
+              <input {...register("mobileNumber")} placeholder="9876543210" />
+              {errors.mobileNumber && <span style={errorStyle}>{errors.mobileNumber.message}</span>}
+            </label>
+            <label>
+              <span className="field-label">Registration Date <span className="star">*</span></span>
+              <input type="date" {...register("registrationDate")} />
+              {errors.registrationDate && <span style={errorStyle}>{errors.registrationDate.message}</span>}
+            </label>
+          </div>
         </>
     )
 }
