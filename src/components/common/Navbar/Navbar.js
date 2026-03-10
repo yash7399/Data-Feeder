@@ -6,7 +6,6 @@ const Navbar = () => {
     const navItems = [
         {
             name: 'Real Time',
-            basePath: '/real-time',
             subItems: [
                 { label: 'Add a Vendor', path: '/real-time-add-new-vendor' },
                 { label: 'Delete/Edit Vendors', path: '/real-time-show-all-vendors' }
@@ -14,7 +13,6 @@ const Navbar = () => {
         },
         {
             name: 'Delay',
-            basePath: '/delay',
             subItems: [
                 { label: 'Add a Vendor', path: '/delay-add-new-vendor' },
                 { label: 'Delete/Edit Vendors', path: '/delay-show-all-vendors' }
@@ -22,10 +20,9 @@ const Navbar = () => {
         },
         {
             name:"Show All Vendors",
-            basePath:"/show-all-vendors",
             subItems:[
-                {label:"Real Time Vendors", path:"/real-time"},
-                {label:"Delay Vendors", path:"/delay"}
+                {label:"Real Time Vendors", path:"/vendors/real-time"},
+                {label:"Delay Vendors", path:"/vendors/delay"}
             ]
         }
 

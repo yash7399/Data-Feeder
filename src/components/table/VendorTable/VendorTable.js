@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './VendorTable.css';
-import DeleteConfirm from '../DeleteConfirm';
+import DeleteConfirm from './DeleteConfirm';
+import FormRealTime from '../../form/FormRealTime/FormRealTime';
+import { useNavigate } from 'react-router-dom';
 
 const VendorTable = () => {
   const vendors = [
@@ -14,8 +16,10 @@ const VendorTable = () => {
   const [showConfirm, setShowConfirm] = useState(false);
   const [vendorToDelete, setVendorToDelete] = useState(null);
 
-  const handleEdit = (vendor) => {
-    alert(`Edit mode for: ${vendor.name}`);
+  const navigate=useNavigate();
+
+  const handleEdit = (id) => {
+    navigate(`/real-time/edit/${id}`)
   };
 
   // Open delete confirmation for specific vendor
@@ -53,7 +57,6 @@ const VendorTable = () => {
               <th>Vendor Name</th>
               <th>IP Address</th>
               <th>Port</th>
-              <th>Connection</th>
               <th className="text-center">Actions</th>
             </tr>
           </thead>
@@ -64,17 +67,11 @@ const VendorTable = () => {
                 <td className="font-bold">{vendor.name}</td>
                 <td><code>{vendor.ip}</code></td>
                 <td>{vendor.port}</td>
-                <td>
-                  <div className="online-indicator">
-                    <span className={`dot ${vendor.online ? 'online' : 'offline'}`}></span>
-                    {vendor.online ? 'Online' : 'Offline'}
-                  </div>
-                </td>
                 <td className="text-center">
                   <div className="action-buttons">
                     <button 
                       className="edit-btn" 
-                      onClick={() => handleEdit(vendor)}
+                      onClick={() => handleEdit(vendor.id)}
                     >
                       Edit
                     </button>

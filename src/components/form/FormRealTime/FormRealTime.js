@@ -11,7 +11,7 @@ import SegmentWiseDetails from "../SegmentWiseDetails/SegmentWiseDetails";
 import CaptchaSection from "../CaptchaSection/CaptchaSection";
 import schema from "../Zod/RealTimeSchema.js"
 
-const FormRealTime = () => {
+const FormRealTime = ({data}) => {
   const {
     register,
     handleSubmit,
@@ -84,6 +84,10 @@ const FormRealTime = () => {
               errors={errors}
               errorStyle={errorStyle}
               inputErrorBorder={inputErrorBorder}
+              vendorName={data?.vendorName}
+              ipAddress={data?.ipAddress}
+              port={data?.port}
+              status={data?.status}
             />
           </section>
 

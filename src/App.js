@@ -7,6 +7,8 @@ import Navbar from "./components/common/Navbar/Navbar";
 import VendorTable from "./components/table/VendorTable/VendorTable";
 import Logo from "./components/common/Logo/Logo";
 import MyForm from "./components/form/MyForm/MyForm";
+import ShowAllTable from "./components/table/ShowallTable/ShowallTable";
+import Edit from "./components/table/VendorTable/RealTimeEdit";
 
 const App = () => {
   return (
@@ -22,9 +24,13 @@ const App = () => {
           <Route path="/delay-add-new-vendor" element={<FormDelay/>} />
           <Route path="/real-time-show-all-vendors" element={<VendorTable />} />
           <Route path="/delay-show-all-vendors" element={<VendorTable/>} />
+
+          <Route path="/vendors/real-time" element={<ShowAllTable />} />
+          <Route path="/vendors/delay" element={<ShowAllTable/>} />
+
+          <Route path="/real-time/edit/:id" element={<Edit/>} />
           
-          {/* Optional: Add route for Show All Vendors */}
-          {/* <Route path="/vendors" element={<VendorsList />} /> */}
+          
         </Routes>
       </main>
     </Router>
